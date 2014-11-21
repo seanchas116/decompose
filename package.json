@@ -4,7 +4,7 @@
   "description": "decompose",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,17 @@
   "bugs": {
     "url": "https://github.com/seanchas116/decompose/issues"
   },
-  "homepage": "https://github.com/seanchas116/decompose"
+  "homepage": "https://github.com/seanchas116/decompose",
+  "peerDependencies": {
+    "virtual-dom": "0.0.22"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "coffee-script": "^1.8.0",
+    "mocha": "^2.0.1",
+    "virtual-hyperscript": "^4.6.0"
+  },
+  "dependencies": {
+    "xtend": "^4.0.0"
+  }
 }
