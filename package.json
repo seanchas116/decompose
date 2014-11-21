@@ -25,7 +25,5 @@
     "mocha": "^2.0.1",
     "virtual-hyperscript": "^4.6.0"
   },
-  "dependencies": {
-    "xtend": "^4.0.0"
-  }
+  "dependencies": {}
 }
