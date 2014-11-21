@@ -39,14 +39,14 @@ describe 'Component', ->
         @renderInner(NewTodo)
       ]
 
+  todos = [
+    { title: 'Go to town' }
+    { title: 'Buy some food' }
+  ]
+
   describe '#buildTree', ->
 
     it 'build a virtual dom tree', ->
-
-      todos = [
-        { title: 'Go to town' }
-        { title: 'Buy some food' }
-      ]
 
       app = new TodoApp()
       app.setData(todos)
@@ -67,3 +67,24 @@ describe 'Component', ->
       ]
 
       assert.deepEqual app.buildTree(), expected
+
+  describe '#parent', ->
+
+    it 'is the parent of the component', ->
+
+      app = new TodoApp()
+      app.setData(todos)
+      app.buildTree()
+
+      assert.equal app.children[0].parent, app
+
+  describe '#children', ->
+
+    it 'returns the array of the children', ->
+
+      app = new TodoApp()
+      app.setData(todos)
+      app.buildTree()
+
+      assert.equal app.children.length, 2
+      assert.instanceOf app.children[0], TodoList

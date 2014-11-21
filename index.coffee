@@ -9,6 +9,7 @@ class Component
   setData: ->
 
   buildTree: ->
+    @children = []
     @treeCache ? @render()
 
   renderInner: (componentClass, data) ->
@@ -17,5 +18,6 @@ class Component
 
     component.setData(data)
     component.parent = this
+    @children.push component
 
     component.buildTree()
