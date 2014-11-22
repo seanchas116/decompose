@@ -45,6 +45,12 @@ todos = [
 
 describe 'Component', ->
 
+  app = null
+
+  beforeEach ->
+    app = new TodoApp()
+    app.setData(todos)
+
   describe '#buildTree', ->
 
     expected = h 'section', [
@@ -63,24 +69,13 @@ describe 'Component', ->
     ]
 
     it 'build a virtual dom tree', ->
-
-      app = new TodoApp()
-      app.setData(todos)
-
       assert.deepEqual app.buildTree(), expected
 
     it 'returns cached tree until any descendant is updated', ->
-
-      app = new TodoApp()
-      app.setData(todos)
-
       assert.deepEqual app.buildTree(), expected
       assert.equal app.buildTree(), app.buildTree()
 
     it 'returns a new tree after any descendant is updated', ->
-
-      app = new TodoApp()
-      app.setData(todos)
 
       before = app.buildTree()
       app.children[0].children[0].update()
@@ -93,19 +88,12 @@ describe 'Component', ->
   describe '#parent', ->
 
     it 'is the parent of the component', ->
-
-      app = new TodoApp()
-      app.setData(todos)
       app.buildTree()
-
       assert.equal app.children[0].parent, app
 
   describe '#children', ->
 
     it 'returns the array of the children', ->
-
-      app = new TodoApp()
-      app.setData(todos)
       app.buildTree()
 
       assert.equal app.children.length, 2
