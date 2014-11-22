@@ -1,10 +1,7 @@
-diff = require 'virtual-dom/diff'
-patch = require 'virtual-dom/patch'
-createElement = require 'virtual-dom/create-element'
-h = require 'virtual-hyperscript'
+EventEmitter = (require 'events').EventEmitter
 
 module.exports =
-class Component
+class Component extends EventEmitter
 
   setData: ->
 
@@ -25,5 +22,6 @@ class Component
 
   update: ->
     @treeCache = null
+    @emit 'update'
     if @parent?
       @parent.update()
