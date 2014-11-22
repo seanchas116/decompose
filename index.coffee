@@ -10,7 +10,8 @@ class Component
 
   buildTree: ->
     @children = []
-    @treeCache ? @render()
+    @treeCache ?= @render()
+    @treeCache
 
   renderInner: (componentClass, data) ->
 
@@ -21,3 +22,8 @@ class Component
     @children.push component
 
     component.buildTree()
+
+  update: ->
+    @treeCache = null
+    if @parent?
+      @parent.update()

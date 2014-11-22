@@ -46,27 +46,48 @@ describe 'Component', ->
 
   describe '#buildTree', ->
 
+    expected = h 'section', [
+      h 'h1', 'Todo'
+      h 'ul', [
+        h 'li', [
+          h 'h2', 'Go to town'
+        ]
+        h 'li', [
+          h 'h2', 'Buy some food'
+        ]
+      ]
+      h 'div', [
+        h 'textarea'
+      ]
+    ]
+
     it 'build a virtual dom tree', ->
 
       app = new TodoApp()
       app.setData(todos)
 
-      expected = h 'section', [
-        h 'h1', 'Todo'
-        h 'ul', [
-          h 'li', [
-            h 'h2', 'Go to town'
-          ]
-          h 'li', [
-            h 'h2', 'Buy some food'
-          ]
-        ]
-        h 'div', [
-          h 'textarea'
-        ]
-      ]
+      assert.deepEqual app.buildTree(), expected
+
+    it 'returns cached tree until any descendant is updated', ->
+
+      app = new TodoApp()
+      app.setData(todos)
 
       assert.deepEqual app.buildTree(), expected
+      assert.equal app.buildTree(), app.buildTree()
+
+    it 'returns a new tree after any descendant is updated', ->
+
+      app = new TodoApp()
+      app.setData(todos)
+
+      before = app.buildTree()
+      app.children[0].children[0].update()
+      after = app.buildTree()
+
+      assert.deepEqual before, expected
+      assert.deepEqual after, expected
+      assert.notEqual before, after
 
   describe '#parent', ->
 
