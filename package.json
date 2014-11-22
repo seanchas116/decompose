@@ -17,9 +17,6 @@
     "url": "https://github.com/seanchas116/decompose/issues"
   },
   "homepage": "https://github.com/seanchas116/decompose",
-  "peerDependencies": {
-    "virtual-dom": "0.0.22"
-  },
   "devDependencies": {
     "chai": "^1.10.0",
     "coffee-script": "^1.8.0",
@@ -28,5 +25,7 @@
     "mochify": "^2.0.0",
     "virtual-hyperscript": "^4.6.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "virtual-dom": "0.0.22"
+  }
 }
