@@ -1,6 +1,6 @@
 assert = (require 'chai').assert
 h = require 'virtual-hyperscript'
-Component = require '../Component'
+Component = require '../lib/Component'
 
 describe 'Component', ->
 
