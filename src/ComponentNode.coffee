@@ -8,7 +8,6 @@ class ComponentNode
   type: 'Widget'
 
   constructor: (@klass, @attrs) ->
-    @callback
 
   init: ->
     @component = new @klass()
@@ -17,6 +16,9 @@ class ComponentNode
     @mount.create()
 
   update: (old, dom) ->
+    if old.klass != @klass
+      return @init()
+
     @component = old.component
     @mount = old.mount
     @component.setAttributes(@attrs)
