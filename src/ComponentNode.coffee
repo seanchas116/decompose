@@ -20,6 +20,7 @@ class ComponentNode
     @component = old.component
     @mount = old.mount
     @component.setAttributes(@attrs)
+    @mount.dom
 
   destroy: (dom) ->
     @mount.unmount()
