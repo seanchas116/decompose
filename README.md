@@ -5,14 +5,12 @@ decompose
 
 decompose is a library that provides a simple component system on [virtual-dom](https://github.com/Matt-Esch/virtual-dom/)
 
-Features
+### Features
 
 * Class-based component system like React
-
   * Override `#render` to define view
 
 * Creates and diffs virtual DOM tree and apply patches to a real DOM locally in each component
-
   * Using virtual-dom's "Widget" node
 
 * Supports mixing real DOM based components
@@ -60,3 +58,4 @@ Todo
 
 * More tests
 * Better support for ES5
+* Release
