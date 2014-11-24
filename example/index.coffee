@@ -1,7 +1,6 @@
 h = require 'virtual-hyperscript'
 EventEmitter = (require 'events').EventEmitter
-Component = require '../src/Component'
-Mount = require '../src/Mount'
+{Component, Mount} = require '../src/index'
 DomComponent = require '../src/DomComponent'
 
 class InputView extends DomComponent

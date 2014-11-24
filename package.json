@@ -2,7 +2,7 @@
   "name": "decompose",
   "version": "0.0.1",
   "description": "decompose",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "pretest": "coffee -o lib -c src/*.coffee",
     "test": "mochify ./test/*.coffee --transform coffeeify",
