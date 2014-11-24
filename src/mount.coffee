@@ -1,22 +1,31 @@
+'use strict'
+
 diff = require 'virtual-dom/diff'
 patch = require 'virtual-dom/patch'
-createElement = require 'virtual-dom/create-element'
+createDom = require 'virtual-dom/create-element'
 
 module.exports =
-mount = (component, target) ->
+class Mount
 
-  if typeof target == 'string'
-    query = target
-    target = document.querySelector(query)
-    unless target?
-      throw new Error("cannt find element: '#{query}'")
+  constructor: (@component) ->
+    @updateCallback = => @update()
 
-  tree = component.buildTree()
-  element = createElement(tree)
-  target.parentElement.replaceChild(element, target)
+  update: ->
+    newTree = @component.render()
+    patches = diff(@tree, newTree)
+    @dom = patch(@dom, patches)
+    @tree = newTree
 
-  component.on 'update', ->
-    newTree = component.buildTree()
-    patches = diff(tree, newTree)
-    element = patch(element, patches)
-    tree = newTree
+  mount: (placeholder) ->
+    @create()
+    parent = placeholder.parentElement
+    parent.replaceChild(@dom, placeholder)
+
+  create: ->
+    @tree = @component.render()
+    @dom = createDom(@tree)
+    @component.on 'update', @updateCallback
+    @dom
+
+  unmount: ->
+    @component.removeEventListener 'update', @updateCallback

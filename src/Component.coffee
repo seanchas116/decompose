@@ -1,27 +1,33 @@
+'use strict'
+
+h = require 'virtual-hyperscript'
+assign = Object.assign ? require 'object-assign'
 EventEmitter = (require 'events').EventEmitter
+ComponentNode = require './ComponentNode'
 
 module.exports =
 class Component extends EventEmitter
 
-  setData: ->
+  constructor: (attrs) ->
+    @setAttributes(attrs)
+    @onInit()
 
-  buildTree: ->
-    @children = []
-    @treeCache ?= @render()
-    @treeCache
+  setAttributes: (attrs) ->
+    assign(this, attrs)
+    @emit 'update'
 
-  renderInner: (componentClass, data) ->
-
-    component = new componentClass()
-
-    component.setData(data)
-    component.parent = this
-    @children.push component
-
-    component.buildTree()
+  destroy: ->
+    @onDestroy
 
   update: ->
-    @treeCache = null
     @emit 'update'
-    if @parent?
-      @parent.update()
+
+  render: ->
+    h 'div'
+
+  onInit: ->
+
+  onDestroy: ->
+
+  @render: (attrs) ->
+    new ComponentNode(this, attrs ? {})
