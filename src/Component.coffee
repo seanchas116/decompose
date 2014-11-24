@@ -17,7 +17,7 @@ class Component extends EventEmitter
     @emit 'update'
 
   destroy: ->
-    @onDestroy
+    @onDestroy()
 
   update: ->
     @emit 'update'
