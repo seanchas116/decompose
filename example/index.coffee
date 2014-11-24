@@ -2,6 +2,13 @@ h = require 'virtual-hyperscript'
 EventEmitter = (require 'events').EventEmitter
 Component = require '../src/Component'
 Mount = require '../src/Mount'
+DomComponent = require '../src/DomComponent'
+
+class InputView extends DomComponent
+  tag: 'input'
+
+  onInit: ->
+    @element.value = 'hoge'
 
 class TodoCollection extends EventEmitter
 
@@ -16,6 +23,7 @@ class TodoView extends Component
   render: ->
     h 'li', [
       h 'h2', @todo.title
+      InputView.render()
     ]
 
 class TodoListView extends Component
@@ -23,6 +31,7 @@ class TodoListView extends Component
   render: ->
     h 'ul', @todos.map (todo) =>
       TodoView.render todo: todo
+
 
 todoCollection = new TodoCollection [
   { title: 'Go to town' }

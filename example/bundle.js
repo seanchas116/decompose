@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var Component, EventEmitter, Mount, TodoCollection, TodoListView, TodoView, h, todoCollection, todoListView,
+var Component, DomComponent, EventEmitter, InputView, Mount, TodoCollection, TodoListView, TodoView, h, todoCollection, todoListView,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -10,6 +10,25 @@ EventEmitter = (require('events')).EventEmitter;
 Component = require('../src/Component');
 
 Mount = require('../src/Mount');
+
+DomComponent = require('../src/DomComponent');
+
+InputView = (function(_super) {
+  __extends(InputView, _super);
+
+  function InputView() {
+    return InputView.__super__.constructor.apply(this, arguments);
+  }
+
+  InputView.prototype.tag = 'input';
+
+  InputView.prototype.onInit = function() {
+    return this.element.value = 'hoge';
+  };
+
+  return InputView;
+
+})(DomComponent);
 
 TodoCollection = (function(_super) {
   __extends(TodoCollection, _super);
@@ -35,7 +54,7 @@ TodoView = (function(_super) {
   }
 
   TodoView.prototype.render = function() {
-    return h('li', [h('h2', this.todo.title)]);
+    return h('li', [h('h2', this.todo.title), InputView.render()]);
   };
 
   return TodoView;
@@ -90,7 +109,7 @@ window.addEventListener('load', function() {
 
 
 
-},{"../src/Component":48,"../src/Mount":50,"events":3,"virtual-hyperscript":29}],2:[function(require,module,exports){
+},{"../src/Component":48,"../src/DomComponent":50,"../src/Mount":52,"events":3,"virtual-hyperscript":29}],2:[function(require,module,exports){
 
 },{}],3:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
@@ -2063,7 +2082,6 @@ module.exports = ComponentNode = (function() {
   function ComponentNode(klass, attrs) {
     this.klass = klass;
     this.attrs = attrs;
-    this.callback;
   }
 
   ComponentNode.prototype.init = function() {
@@ -2074,9 +2092,13 @@ module.exports = ComponentNode = (function() {
   };
 
   ComponentNode.prototype.update = function(old, dom) {
+    if (old.klass !== this.klass) {
+      return this.init();
+    }
     this.component = old.component;
     this.mount = old.mount;
-    return this.component.setAttributes(this.attrs);
+    this.component.setAttributes(this.attrs);
+    return this.mount.dom;
   };
 
   ComponentNode.prototype.destroy = function(dom) {
@@ -2090,7 +2112,77 @@ module.exports = ComponentNode = (function() {
 
 
 
-},{"./Mount":50}],50:[function(require,module,exports){
+},{"./Mount":52}],50:[function(require,module,exports){
+'use strict';
+var Component, DomComponent, DomComponentNode,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Component = require('./Component');
+
+DomComponentNode = require('./DomComponentNode');
+
+
+/*
+DomComponent provides representation for components which hold and manage a real DOM element.
+ */
+
+module.exports = DomComponent = (function(_super) {
+  __extends(DomComponent, _super);
+
+  DomComponent.prototype.tag = 'div';
+
+  function DomComponent(attrs) {
+    this.element = document.createElement(this.tag);
+    DomComponent.__super__.constructor.call(this, attrs);
+  }
+
+  DomComponent.render = function(attrs) {
+    return new DomComponentNode(this, attrs != null ? attrs : {});
+  };
+
+  return DomComponent;
+
+})(Component);
+
+
+
+},{"./Component":48,"./DomComponentNode":51}],51:[function(require,module,exports){
+'use strict';
+var DomComponentNode;
+
+module.exports = DomComponentNode = (function() {
+  DomComponentNode.prototype.type = 'Widget';
+
+  function DomComponentNode(klass, attrs) {
+    this.klass = klass;
+    this.attrs = attrs;
+  }
+
+  DomComponentNode.prototype.init = function() {
+    this.component = new this.klass(this.attrs);
+    return this.component.element;
+  };
+
+  DomComponentNode.prototype.update = function(old, dom) {
+    if (old.klass !== this.klass) {
+      return this.init();
+    }
+    this.component = old.component;
+    return this.component.element;
+  };
+
+  DomComponentNode.prototype.destroy = function(dom) {
+    return this.component.destroy();
+  };
+
+  return DomComponentNode;
+
+})();
+
+
+
+},{}],52:[function(require,module,exports){
 'use strict';
 var Mount, createDom, diff, patch;
 
