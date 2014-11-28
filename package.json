@@ -30,6 +30,7 @@
   "dependencies": {
     "object-assign": "^2.0.0",
     "virtual-dom": "0.0.22",
-    "virtual-hyperscript": "^4.6.0"
+    "virtual-hyperscript": "^4.6.0",
+    "vtree": "0.0.22"
   }
 }

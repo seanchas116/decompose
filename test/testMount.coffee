@@ -23,6 +23,7 @@ describe 'Mount', ->
     elem = document.createElement('div')
     document.body.appendChild(elem)
 
+    Todo.instances = []
     app = new TodoApp(todos: todos)
     mount = new Mount(app)
     mount.mount(elem)
@@ -52,3 +53,9 @@ describe 'Mount', ->
 
       mount.unmount()
       assert.equal app.listeners('update').length, 0
+
+    it 'destroys all inner components', ->
+
+      assert.equal Todo.instances.length, 2
+      mount.unmount()
+      assert.equal Todo.instances.length, 0

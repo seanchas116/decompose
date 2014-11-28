@@ -1,12 +1,21 @@
 h = require 'virtual-hyperscript'
 Component = require '../../src/Component'
+_ = require 'lodash'
 
 class Todo extends Component
+
+  @instances: []
+
+  onInit: ->
+    Todo.instances.push(this)
 
   render: ->
     h 'li', [
       h 'h2.todo-title', @todo.title
     ]
+
+  onDestroy: ->
+    Todo.instances.splice(Todo.instances.indexOf(this), 1)
 
 class TodoList extends Component
 

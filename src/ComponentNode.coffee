@@ -24,6 +24,6 @@ class ComponentNode
     @component.setAttributes(@attrs)
     @mount.dom
 
-  destroy: (dom) ->
+  destroy: () ->
     @mount.unmount()
     @component.destroy()
