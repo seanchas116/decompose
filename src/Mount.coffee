@@ -28,4 +28,4 @@ class Mount
     @dom
 
   unmount: ->
-    @component.removeEventListener 'update', @updateCallback
+    @component.removeListener 'update', @updateCallback
