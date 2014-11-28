@@ -1,5 +1,5 @@
 assert = (require 'chai').assert
-Mount = require '../lib/Mount'
+Mount = require '../src/Mount'
 {Todo, TodoList, NewTodo, TodoApp} = require './fixtures/components'
 
 todos = [
