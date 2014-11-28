@@ -25,7 +25,7 @@ describe 'Mount', ->
     app = new TodoApp(todos: todos)
     new Mount(app).mount(elem)
 
-  describe '.mount', ->
+  describe '#mount', ->
 
     it 'mounts component on real dom and tracks updates', ->
 
