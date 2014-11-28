@@ -17,13 +17,15 @@ todos2 = [
 describe 'Mount', ->
 
   app = null
+  mount = null
 
   beforeEach ->
     elem = document.createElement('div')
     document.body.appendChild(elem)
 
     app = new TodoApp(todos: todos)
-    new Mount(app).mount(elem)
+    mount = new Mount(app)
+    mount.mount(elem)
 
   describe '#mount', ->
 
@@ -42,3 +44,11 @@ describe 'Mount', ->
       app.update()
 
       assert.deepEqual getTodosFromDOM(), ['Go to town', 'Buy some food']
+
+
+  describe '#unmount', ->
+
+    it 'removes event listeners from component', ->
+
+      mount.unmount()
+      assert.equal app.listeners('update').length, 0
