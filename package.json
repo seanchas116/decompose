@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "pretest": "coffee -o lib -c src/*.coffee",
-    "test": "mochify ./test/test*.coffee --transform coffeeify",
+    "test": "mochify ./test/test*.coffee --transform coffeeify --extension .coffee",
     "build:example": "browserify ./example/index.coffee --transform coffeeify --extension .coffee > ./example/bundle.js"
   },
   "repository": {
@@ -23,7 +23,7 @@
     "coffee-script": "^1.8.0",
     "coffeeify": "^1.0.0",
     "mocha": "^2.0.1",
-    "mochify": "^2.0.0"
+    "mochify": "git://github.com/seanchas116/mochify.js#extension-opts"
   },
   "dependencies": {
     "object-assign": "^2.0.0",
