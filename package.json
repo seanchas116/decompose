@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "pretest": "coffee -o lib -c src/*.coffee",
-    "test": "mochify ./test/*.coffee --transform coffeeify",
+    "test": "mochify ./test/test*.coffee --transform coffeeify",
     "build:example": "browserify ./example/index.coffee --transform coffeeify --extension .coffee > ./example/bundle.js"
   },
   "repository": {
