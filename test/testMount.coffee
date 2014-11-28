@@ -1,3 +1,4 @@
+_ = require 'lodash'
 assert = (require 'chai').assert
 Mount = require '../src/Mount'
 {Todo, TodoList, NewTodo, TodoApp} = require './fixtures/components'
@@ -5,6 +6,12 @@ Mount = require '../src/Mount'
 todos = [
   { title: 'Go to town' }
   { title: 'Buy some food' }
+]
+
+todos2 = [
+  { title: 'foo' }
+  { title: 'bar' }
+  { title: 'baz' }
 ]
 
 describe 'Mount', ->
@@ -20,11 +27,18 @@ describe 'Mount', ->
 
   describe '.mount', ->
 
-    it 'mounts component on real dom', ->
+    it 'mounts component on real dom and tracks updates', ->
 
-      assert.equal document.querySelectorAll('.todo-title').length, 2
+      getTodosFromDOM = -> _.pluck(document.querySelectorAll('.todo-title'), 'innerText')
 
-      app.todos.push {title: 'hoge'}
+      assert.deepEqual getTodosFromDOM(), ['Go to town', 'Buy some food']
+
+      app.todos = todos2
       app.update()
 
-      assert.equal document.querySelectorAll('.todo-title').length, 3
+      assert.deepEqual getTodosFromDOM(), ['foo', 'bar', 'baz']
+
+      app.todos = todos
+      app.update()
+
+      assert.deepEqual getTodosFromDOM(), ['Go to town', 'Buy some food']
