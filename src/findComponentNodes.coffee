@@ -6,12 +6,12 @@ concat = Array.prototype.concat
 flatten = (arrays) -> concat.apply([], arrays)
 
 module.exports =
-findComponents = (tree) ->
+findComponentNodes = (tree) ->
 
   switch
     when isVNode(tree) && tree.children
-      flatten(tree.children.map(findComponents))
+      flatten(tree.children.map(findComponentNodes))
     when isWidget(tree) && tree instanceof ComponentNode
-      [tree.component]
+      [tree]
     else
       []

@@ -22,15 +22,18 @@ class Mount
     parent.replaceChild(@dom, placeholder)
 
   create: ->
-    if @component.mount?
-      throw new Error 'cannot remount already mounted element'
     @tree = @component.render()
     @dom = createDom(@tree)
+
     @component.on 'update', @updateCallback
-    @component.mount = this
+
     @dom
 
   unmount: ->
     @component.removeListener 'update', @updateCallback
+
+    findComponentNodes(@tree).forEach (c)->
+      c.destroy()
     @component.destroy()
-    @component.mount = null
+
+findComponentNodes = require './findComponentNodes'

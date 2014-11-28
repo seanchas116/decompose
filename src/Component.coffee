@@ -4,7 +4,6 @@ h = require 'virtual-hyperscript'
 assign = Object.assign ? require 'object-assign'
 EventEmitter = (require 'events').EventEmitter
 ComponentNode = require './ComponentNode'
-findComponents = require './findComponents'
 
 module.exports =
 class Component extends EventEmitter
@@ -18,9 +17,6 @@ class Component extends EventEmitter
     @emit 'update'
 
   destroy: ->
-    if @mount?
-      findComponents(@mount.tree).forEach (c)->
-        c.destroy()
     @onDestroy()
 
   update: ->
