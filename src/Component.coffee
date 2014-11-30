@@ -1,7 +1,6 @@
 'use strict'
 
 h = require 'virtual-hyperscript'
-assign = Object.assign ? require 'object-assign'
 EventEmitter = (require 'events').EventEmitter
 ComponentNode = require './ComponentNode'
 
@@ -12,8 +11,12 @@ class Component extends EventEmitter
     @setAttributes(attrs)
 
   setAttributes: (attrs) ->
-    assign(this, attrs)
-    @emit 'update'
+    willUpdate = false
+    for own key, value of attrs
+      if this[key] != value
+        this[key] = value
+        willUpdate = true
+    @emit 'update' if willUpdate
 
   destroy: ->
     @onDestroy()
