@@ -1,3 +1,5 @@
+'use strict'
+
 isVNode = require 'vtree/is-vnode'
 isWidget = require 'vtree/is-widget'
 
