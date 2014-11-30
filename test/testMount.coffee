@@ -22,12 +22,12 @@ describe 'Mount', ->
 
   beforeEach ->
     elem = document.createElement('div')
+    elem.id = 'main'
     document.body.appendChild(elem)
 
     Todo.instances = []
     app = new TodoApp(todos: todos)
     mount = new Mount(app)
-    mount.mount(elem)
 
   afterEach ->
     document.body.removeChild(mount.domElement)
@@ -35,9 +35,16 @@ describe 'Mount', ->
   describe '#mount', ->
 
     it 'mounts component on real dom and tracks updates', ->
+      mount.mount(elem)
+      assert.deepEqual getTodosFromDOM(), ['Go to town', 'Buy some food']
+
+    it 'accepts selector', ->
+      mount.mount('#main')
       assert.deepEqual getTodosFromDOM(), ['Go to town', 'Buy some food']
 
     it 'tracks updates on inner elements', ->
+      mount.mount(elem)
+
       app.todos = todos2
       app.update()
       assert.deepEqual getTodosFromDOM(), ['foo', 'bar', 'baz']
@@ -47,6 +54,9 @@ describe 'Mount', ->
       assert.deepEqual getTodosFromDOM(), ['Go to town', 'Buy some food']
 
   describe '#unmount', ->
+
+    beforeEach ->
+      mount.mount(elem)
 
     it 'removes event listeners from component', ->
       mount.unmount()

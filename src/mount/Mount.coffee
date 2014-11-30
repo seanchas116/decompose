@@ -17,6 +17,11 @@ class Mount
     @tree = newTree
 
   mount: (placeholder) ->
+    if typeof placeholder == 'string'
+      selector = placeholder
+      placeholder = document.querySelector(selector)
+      unless placeholder?
+        throw new Error("No such element found: '#{selector}'")
     @create()
     parent = placeholder.parentElement
     parent.replaceChild(@domElement, placeholder)
