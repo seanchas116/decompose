@@ -30,7 +30,7 @@ describe 'Mount', ->
     mount.mount(elem)
 
   afterEach ->
-    document.body.removeChild(mount.dom)
+    document.body.removeChild(mount.domElement)
 
   describe '#mount', ->
 

@@ -13,22 +13,22 @@ class Mount
   update: ->
     newTree = @component.render()
     patches = diff(@tree, newTree)
-    @dom = patch(@dom, patches)
+    @domElement = patch(@domElement, patches)
     @tree = newTree
 
   mount: (placeholder) ->
     @create()
     parent = placeholder.parentElement
-    parent.replaceChild(@dom, placeholder)
+    parent.replaceChild(@domElement, placeholder)
 
   create: ->
     @tree = @component.render()
-    @dom = createDom(@tree)
+    @domElement = createDom(@tree)
 
     @component.on 'update', @updateCallback
     @component.onMount()
 
-    @dom
+    @domElement
 
   unmount: ->
     @component.removeListener 'update', @updateCallback
