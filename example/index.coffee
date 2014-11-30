@@ -13,8 +13,12 @@ class TodoCollection extends EventEmitter
 
   constructor: (@todos) ->
 
-  add: (todo) ->
+  push: (todo) ->
     @todos.push(todo)
+    @emit 'update'
+
+  shift: ->
+    @todos.shift()
     @emit 'update'
 
 class TodoView extends Component
@@ -43,4 +47,7 @@ todoCollection.on 'update', ->
 
 window.addEventListener 'load', ->
   new Mount(todoListView).mount(document.getElementById('main'))
-  setInterval (-> todoCollection.add {title: 'New task'}), 1000
+  shift = ->
+    todoCollection.shift()
+    todoCollection.push {title: 'New task'}
+  setInterval shift, 1000
