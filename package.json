@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "coffee -o lib -c src/*.coffee",
     "test": "mochify ./test/test*.coffee --transform coffeeify --extension .coffee",
-    "test:watch": "mochify ./test/test*.coffee --watch --transform coffeeify --extension .coffee",
+    "watch:test": "mochify ./test/test*.coffee --watch --transform coffeeify --extension .coffee",
     "build:example": "browserify ./example/index.coffee --transform coffeeify --extension .coffee > ./example/bundle.js"
   },
   "repository": {
