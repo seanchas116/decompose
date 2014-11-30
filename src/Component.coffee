@@ -8,9 +8,9 @@ module.exports =
 class Component extends EventEmitter
 
   constructor: (attrs) ->
-    @setAttributes(attrs)
+    @assign(attrs)
 
-  setAttributes: (attrs) ->
+  assign: (attrs) ->
     willUpdate = false
     for own key, value of attrs
       if this[key] != value

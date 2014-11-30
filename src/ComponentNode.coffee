@@ -12,7 +12,7 @@ class ComponentNode
 
   init: ->
     @component = new @klass()
-    @component.setAttributes(@attrs)
+    @component.assign(@attrs)
     @mount = new Mount(@component)
     @mount.create()
 
@@ -22,7 +22,7 @@ class ComponentNode
 
     @component = old.component
     @mount = old.mount
-    @component.setAttributes(@attrs)
+    @component.assign(@attrs)
     @mount.dom
 
   destroy: () ->
