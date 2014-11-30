@@ -9,6 +9,7 @@ class Component extends EventEmitter
 
   constructor: (attrs) ->
     @assign(attrs)
+    @onInit()
 
   assign: (attrs) ->
     willUpdate = false
@@ -26,6 +27,8 @@ class Component extends EventEmitter
 
   render: ->
     h 'div'
+
+  onInit: ->
 
   onMount: ->
 
