@@ -4,6 +4,7 @@ module.exports =
 class DomComponentNode
 
   type: 'Widget'
+  widgetType: 'DomComponent'
 
   constructor: (@klass, @attrs) ->
 

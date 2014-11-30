@@ -6,6 +6,7 @@ module.exports =
 class ComponentNode
 
   type: 'Widget'
+  widgetType: 'Component'
 
   constructor: (@klass, @attrs) ->
 
