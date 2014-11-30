@@ -26,4 +26,3 @@ class ComponentNode
 
   destroy: () ->
     @mount.unmount()
-    @component.destroy()

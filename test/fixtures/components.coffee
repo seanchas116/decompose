@@ -6,7 +6,7 @@ class Todo extends Component
 
   @instances: []
 
-  onInit: ->
+  onMount: ->
     Todo.instances.push(this)
 
   render: ->
@@ -14,7 +14,7 @@ class Todo extends Component
       h 'h2.todo-title', @todo.title
     ]
 
-  onDestroy: ->
+  onUnmount: ->
     Todo.instances.splice(Todo.instances.indexOf(this), 1)
 
 class TodoList extends Component

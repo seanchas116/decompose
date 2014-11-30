@@ -10,7 +10,6 @@ class Component extends EventEmitter
 
   constructor: (attrs) ->
     @setAttributes(attrs)
-    @onInit()
 
   setAttributes: (attrs) ->
     assign(this, attrs)
@@ -25,9 +24,9 @@ class Component extends EventEmitter
   render: ->
     h 'div'
 
-  onInit: ->
+  onMount: ->
 
-  onDestroy: ->
+  onUnmount: ->
 
   @render: (attrs) ->
     new ComponentNode(this, attrs ? {})

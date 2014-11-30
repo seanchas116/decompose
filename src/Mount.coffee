@@ -26,14 +26,15 @@ class Mount
     @dom = createDom(@tree)
 
     @component.on 'update', @updateCallback
+    @component.onMount()
 
     @dom
 
   unmount: ->
     @component.removeListener 'update', @updateCallback
 
-    findComponentNodes(@tree).forEach (c)->
-      c.destroy()
-    @component.destroy()
+    findComponentNodes(@tree).forEach (node) ->
+      node.destroy()
+    @component.onUnmount()
 
 findComponentNodes = require './findComponentNodes'
