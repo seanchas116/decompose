@@ -1,5 +1,5 @@
 h = require 'virtual-hyperscript'
-Component = require '../../src/component/Component'
+{Component} = require '../../src/index'
 _ = require 'lodash'
 
 class Todo extends Component

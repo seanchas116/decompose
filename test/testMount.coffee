@@ -1,6 +1,6 @@
 _ = require 'lodash'
 assert = (require 'chai').assert
-Mount = require '../src/mount/Mount'
+{Mount} = require '../src/index'
 {Todo, TodoList, NewTodo, TodoApp} = require './fixtures/components'
 
 todos = [
