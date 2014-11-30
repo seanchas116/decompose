@@ -1,6 +1,6 @@
 'use strict'
 
 module.exports =
-  Component: require './Component'
-  DomComponent: require './DomComponent'
-  Mount: require './Mount'
+  Component: require './component/Component'
+  DomComponent: require './component/DomComponent'
+  Mount: require './mount/Mount'

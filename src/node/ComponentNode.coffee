@@ -1,6 +1,6 @@
 'use strict'
 
-Mount = require './Mount'
+Mount = require '../mount/Mount'
 
 module.exports =
 class ComponentNode

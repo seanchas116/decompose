@@ -1,7 +1,7 @@
 'use strict'
 
 Component = require './Component'
-DomComponentNode = require './DomComponentNode'
+DomComponentNode = require '../node/DomComponentNode'
 
 ###
 DomComponent provides representation for components which hold and manage a real DOM element.

@@ -37,4 +37,4 @@ class Mount
       node.destroy()
     @component.onUnmount()
 
-findComponentNodes = require './findComponentNodes'
+findComponentNodes = require '../node/findComponentNodes'

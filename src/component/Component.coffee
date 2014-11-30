@@ -2,7 +2,7 @@
 
 h = require 'virtual-hyperscript'
 EventEmitter = (require 'events').EventEmitter
-ComponentNode = require './ComponentNode'
+ComponentNode = require '../node/ComponentNode'
 
 module.exports =
 class Component extends EventEmitter
