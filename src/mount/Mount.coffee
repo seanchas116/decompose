@@ -8,13 +8,26 @@ module.exports =
 class Mount
 
   constructor: (@component) ->
-    @updateCallback = => @update()
+    @queueCallback = => @queue()
+    @queued = false
+    @domElement = null
+    @tree = null
 
   update: ->
     newTree = @component.render()
     patches = diff(@tree, newTree)
     @domElement = patch(@domElement, patches)
     @tree = newTree
+
+    @queued = false
+
+  queue: ->
+    unless @queued
+      process.nextTick => @flush()
+      @queued = true
+
+  flush: ->
+    @update() if @queued
 
   mount: (placeholder) ->
     if typeof placeholder == 'string'
@@ -30,13 +43,13 @@ class Mount
     @tree = @component.render()
     @domElement = createDom(@tree)
 
-    @component.on 'update', @updateCallback
+    @component.on 'update', @queueCallback
     @component.onMount()
 
     @domElement
 
   unmount: ->
-    @component.removeListener 'update', @updateCallback
+    @component.removeListener 'update', @queueCallback
 
     findComponentNodes(@tree).forEach (node) ->
       node.destroy()

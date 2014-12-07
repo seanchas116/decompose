@@ -42,16 +42,22 @@ describe 'Mount', ->
       mount.mount('#main')
       assert.deepEqual getTodosFromDOM(), ['Go to town', 'Buy some food']
 
-    it 'tracks updates on inner elements', ->
+    it 'tracks updates on inner elements', (done) ->
       mount.mount(elem)
 
       app.todos = todos2
       app.update()
-      assert.deepEqual getTodosFromDOM(), ['foo', 'bar', 'baz']
 
-      app.todos = todos
-      app.update()
-      assert.deepEqual getTodosFromDOM(), ['Go to town', 'Buy some food']
+      process.nextTick ->
+        assert.deepEqual getTodosFromDOM(), ['foo', 'bar', 'baz']
+
+        app.todos = todos
+        app.update()
+
+        process.nextTick ->
+          assert.deepEqual getTodosFromDOM(), ['Go to town', 'Buy some food']
+
+          done()
 
   describe '#unmount', ->
 

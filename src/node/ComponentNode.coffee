@@ -23,6 +23,7 @@ class ComponentNode
     @component = old.component
     @mount = old.mount
     @component.assign(@attrs)
+    @mount.flush()
     @mount.dom
 
   destroy: () ->
